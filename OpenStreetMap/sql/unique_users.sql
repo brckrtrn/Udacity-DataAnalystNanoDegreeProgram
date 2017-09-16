@@ -1,0 +1,2 @@
+SELECT COUNT(DISTINCT(a.uid))
+FROM (SELECT uid FROM nodes UNION ALL SELECT uid FROM ways) a
