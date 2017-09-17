@@ -1,0 +1,143 @@
+---
+title: "Stroop Effect by Burcu Kurtaran"
+output:
+  html_document: default
+  word_document: default
+---
+#Introduction
+The Stroop effect is a psychological occurrence named after American psychologist, John Ridley Stroop, who describes the effect as a demostration of interference in the reaction time of a task.[1] A typical example of such phenomenon can be well demonstrated by the Interactive Stroop Effect Experiment, which is described in detail by the following section.
+
+#The Experiment
+
+In a Stroop task, participants are presented with a list of words, with each word displayed in a color of ink. The participant’s task is to say out loud the color of the ink in which the word is printed. The task has two conditions: a congruent words condition, and an incongruent words condition. In the congruent words condition, the words being displayed are color words whose names match the colors in which they are printed: for example RED, BLUE. In the incongruent words condition, the words displayed are color words whose names do not match the colors in which they are printed: for example PURPLE, ORANGE. In each case, we measure the time it takes to name the ink colors in equally-sized lists. Each participant will go through and record a time from each condition.
+
+#Data
+
+The task has two conditions: a congruent words condition, and an incongruent words condition. In each case the time it takes to name the ink colors in equally-sized lists is measured. Each participant will go through and record a time from each condition.
+
+- In the congruent words condition, the words being displayed are color words whose names match the colors in which they are printed.
+
+- In the incongruent words condition, the words displayed are color words whose names do not match the colors in which they are printed.
+
+```{r}
+stroopEffect <- read.csv("stroopdata.csv")
+
+stroopEffect
+```
+
+As shown by the R outputs below, the average times of the 24 participants performing the task under the congruent words condition and the incongruent words condition are xc¯=14.05113s and xi¯=22.01592s respectively.
+
+The sample standard deviations of the two conditions are sc = 3.559358 and si = 4.797057.
+
+The difference between the two average times is xc¯ - xi¯=-7.964792s, and the standard deviation of the difference between two conditions in time is sd=4.864827.
+
+
+```{r}
+summary(stroopEffect)
+
+AvgCongruent = mean(stroopEffect[["Congruent"]])
+AvgIncongruent = mean(stroopEffect[["Incongruent"]])
+SdCongruent = sd(stroopEffect[["Congruent"]])
+SdIncongruent = sd(stroopEffect[["Incongruent"]])
+MeanDiff = AvgCongruent - AvgIncongruent
+SdDiff = SdCongruent - SdIncongruent
+
+stroopEffectVar <- data.frame(AvgCongruent, 
+                              AvgIncongruent, 
+                              SdCongruent, 
+                              SdIncongruent,
+                              MeanDiff,
+                              SdDiff)
+
+stroopEffectVar
+
+```
+
+#Independent and dependent variables
+
+The independent variable is the congruency condition - whether the name of the color matches with the ink color.
+
+The dependent variable is the time it takes to name the ink colors in equally-sized lists.
+
+#Appropriate set of hypotheses for this task and statistical test
+
+Because the mean difference might be due to expected variability, we need to do a T-Test to find out if the difference is significant. I will perform a dependent paired, two-sample for mean T-Test.
+
+- Dependent: I chose dependent because there is only one sample that has been tested twice
+
+- Paired: I chose paired because our participants were measured at two time points (so each individual has two measurements).
+
+H0 = The two samples t-statistic do not statistically differ at an alpha of .05
+
+HA = The two samples t-statistic do statistically differ at an alpha of .05
+
+#Descriptive statistics
+
+I need to do some changes, so the data becomes more comfortable to work in R. "tidyr" is a package that makes it easy to “tidy” your data. Tidy data is data that’s easy to work with: it’s easy to munge (with dplyr), visualise (with ggplot2 or ggvis).[2]
+
+```{r}
+library(tidyr)
+library(dplyr)
+
+stroopEffect.subject <- mutate(stroopEffect, subject = 1:nrow(stroopEffect)) 
+
+tidy.stroopEffect <- gather(stroopEffect.subject, congruency, time, -subject)
+
+tidy.stroopEffect %>%
+    group_by(congruency) %>%
+    summarise(mean(time), median(time), sd(time), var(time))
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(tidy.stroopEffect, aes(y = time, x = congruency, fill = congruency)) + 
+  geom_boxplot()
+```
+
+The boxplot indicates that the two groups have significant difference in median times, and the two groups also have different ranges.
+
+```{r}
+ggplot(tidy.stroopEffect, aes(x = time, fill = congruency)) + 
+  geom_histogram(binwidth = 2)
+```
+
+The histograms confirms the previous observation. It also shows that both groups have outliers.
+
+#Dependent t-test for paired samples
+
+It is time to make t-test. We perform two-sided test with alpha = 0.05, sample size n = 24 and degrees of freedom df = 23. 
+
+```{r}
+# Verify using the t.test() function
+t.test(x = stroopEffect$Congruent, 
+       y = stroopEffect$Incongruent, 
+       alternative = "two.sided", 
+       mu = 0, 
+       paired = TRUE, 
+       conf.level = 0.95)
+```
+
+Results of T-Test:
+
+- Alpha: 0.05
+- T-Critical: 1.714
+- T-statistic: -8.020706944
+- P-Value (2-tail): 0.00000004103000587
+
+
+#Conclusion
+
+Since the p-value is less than 0.05, we reject the null hypothesis. We could conclude that the difference between congruence and incongruence group time difference is the stroop effect is present. This is in line with my expectation.
+
+We are 95% confident that the true difference between the congruence and incongruence group average times is between -10.019028 and -5.910555.
+
+#References
+- Wikipedia: 
+https://en.wikipedia.org/wiki/Stroop_effect
+
+- Introducing tidyr
+https://blog.rstudio.com/2014/07/22/introducing-tidyr/ 
+
+- Package ‘tidyr’
+https://cran.r-project.org/web/packages/tidyr/tidyr.pdf
