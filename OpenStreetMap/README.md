@@ -10,11 +10,14 @@ https://mapzen.com/data/metro-extracts/metro/istanbul_turkey/
 The data in Open Street Map project is built with people. It causes some problems. Some users prefer to use abbreviations, other ones prefer to use long names. I made some changes in data to provide consistency.
 
 - Street address inconsistencies 
+
 		   "istanbul" : "Istanbul"
            "İst" : "Istanbul"
            "Ist" : "Istanbul"
            "ist" : "Istanbul"
+		   
 - Abbreviations
+
            "sk." : "Street"
            "Sk." : "Street"
            "Sk" : "Street"
@@ -34,9 +37,13 @@ The data in Open Street Map project is built with people. It causes some problem
            "Mah.": "Neighborhood"
            "Mh.," : "Neighborhood"
            "Mah," : "Neighborhood"
+		   
 - Misspelling
+
            "Şirinyer" : "Sirinyer"
+		   
 - Turkish names
+
            "Sokak" : "Street"
            "sokak" : "Street"
            "Sokağı" : "Street"
@@ -204,8 +211,11 @@ Biggest religion :  ['Muslim 187']
 The İstanbul OpenStreetMap dataset has many typo errors which caused by human. The volume of data is huge. Considering there are many of contributors for this map, there is a great numbers of human errors in this project. It makes hard to find and clean all possiblities. With these project, only few data could be cleaned, but it satisfies the expectations to learn how to explore data set.
 
 In OpenStreetMap, some prevention could be implemented to decrease the human errors. Also, new features could be added to increase the interaction with the places. 
-- For consistency, one global language could be selected and users only use the selected language to input data. It could be translated in their native language when they use data.
+
+- For consistency, one global language could be selected and users only use the selected language to input data. It could be translated in their native language when they use data. However, it does not avoid the typo errors. The contribition of users could be decreased too. Users who do not know the selected global language as we expected could be given up to make contribition or make typo errors more than now. 
+
 - Competitions could be organized to encourage users. The user who makes the most contributions and at least misspellings could be rewarded with badges, gifts or travels. 
+
 - Especially in touristic cities, people who come to visit want to hear some advices from local people. The most popular cafe, restaurant, avenue could be voted people who live the city and people who visit the city seperately. These votes may give different results, but this system could be increased the contribition and interaction. 
 
 İstanbul is the most crowded area in our country. The dataset could not contain all informations. When the contribition is increased, the data shows more places that I do not go than now. But this data set gives a few new things about my hometown with using SQL. 
