@@ -196,8 +196,23 @@ Observation of the plots are following:
 To normalize some diagrams, I transformed the data for a more accurate distribution. The log10 produces a more understandable distribution.
 
 ```{r echo=FALSE, Distribution_Change}
-p_sulphates_log <- ggplot(aes(x=log10(sulphates)),data =  wineQualityWhites) +
-  geom_bar()+
+
+log10_minor_break = function (...){
+  function(x) {
+    minx         = floor(min(log10(x), na.rm=T))-1;
+    maxx         = ceiling(max(log10(x), na.rm=T))+1;
+    n_major      = maxx-minx+1;
+    major_breaks = seq(minx, maxx, by=1)
+    minor_breaks = 
+      rep(log10(seq(1, 9, by=1)), times = n_major)+
+      rep(major_breaks, each = 9)
+    return(10^(minor_breaks))
+  }
+}
+
+p_sulphates_log <- ggplot(aes(x=sulphates),data =  wineQualityWhites) +
+  geom_density()+
+  scale_x_log10(minor_breaks=log10_minor_break())+
   xlab("Sulphates (log10) of Wine rating") + ylab("Count") +
   ggtitle("Bar of Sulphates  (log10) of Wine")
 
@@ -205,8 +220,9 @@ grid.arrange(p_sulphates,
              p_sulphates_log, 
              ncol = 1)
 
-p_volatile_acidity_log <- ggplot(aes(x=log10(volatile.acidity)),data =  wineQualityWhites) +
-  geom_bar()+
+p_volatile_acidity_log <- ggplot(aes(x=volatile.acidity),data =  wineQualityWhites) +
+  geom_density()+
+  scale_x_log10(minor_breaks=log10_minor_break())+
   xlab("Volatile Acidity (log10) of Wine") + ylab("Count") +
   ggtitle("Bar of Volatile Acidity (log10)  of Wine")
 
@@ -491,7 +507,8 @@ ggplot(data = subset(wineQualityWhites, density < 1.005),
    scale_color_brewer(type = 'seq') +
    xlab('Density (g / cm^3)') +
    ylab('Alcohol (% by volume)') +
-   ggtitle('Density vs. Alcohol Correlation by Quality')
+   ggtitle('Density vs. Alcohol Correlation by Quality')+
+   stat_binhex()
 ```
 
 ### Description Three
@@ -518,3 +535,6 @@ For future exploration of this data, a model could be implemented to make some p
 
 - Using Data Mining for Wine Quality Assessment:
 http://www3.dsi.uminho.pt/pcortez/white.pdf 
+
+- Plotting minor breaks on a log scale with ggplot:
+https://stackoverflow.com/questions/30179442/plotting-minor-breaks-on-a-log-scale-with-ggplot 
