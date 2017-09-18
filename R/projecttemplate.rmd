@@ -94,66 +94,78 @@ Firstly, the distrubiton of all values is examined by histogram graphs:
 ```{r echo=FALSE, Univariate_Plots}
 # exploratory, quick histogram plots
 
-p_quality <- ggplot(aes(x=quality),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = 1)+
-    ggtitle('Quality')
+p_quality <- ggplot(aes(x = as.factor(quality)), data = wineQualityWhites)+
+  geom_bar()+
+  xlab("Wine Quality rating") + ylab("Count") +
+  ggtitle("Bar of Wine Quality")
 
 p_fixed_acidity <- ggplot(aes(x=fixed.acidity),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .2)+
-    ggtitle('Fixed Acidity')
+  geom_bar()+
+  xlab("Fixed Acidity of Wine") + ylab("Count") +
+  ggtitle("Bar of Fixed Acidity of Wine")
 
 p_volatile_acidity <- ggplot(aes(x=volatile.acidity),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .02)+
-    ggtitle('Volatile Acidity')
+  geom_bar()+
+  xlab("Volatile Acidity of Wine") + ylab("Count") +
+  ggtitle("Bar of Volatile Acidity of Wine")
 
 p_citric_acid <- ggplot(aes(x=citric.acid),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .03)+
-    ggtitle('Citric Acid')
+  geom_bar()+
+  xlab("Citric Acid of Wine") + ylab("Count") +
+  ggtitle("Bar of Citric Acid of Wine")
 
 p_residual_sugar <- ggplot(aes(x=residual.sugar),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .5)+
-    ggtitle('Residual Sugar')
+  geom_bar()+
+  xlab("Residual Sugar in Wine") + ylab("Count") +
+  ggtitle("Bar of Residual Sugar in Wine")
 
 p_chlorides <-ggplot(aes(x=chlorides),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .005)+
-   ggtitle('Chlorides')
+  geom_bar()+
+  xlab("Chlorides in Wine") + ylab("Count") +
+  ggtitle("Bar of Chlorides in Wine")
 
 p_free_sulfur_dioxide <- ggplot(aes(x=free.sulfur.dioxide),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = 5)+
-   ggtitle('Free Sulfur Dioxide')
+  geom_bar()+
+  xlab("Free Sulfur Dioxide in Wine") + ylab("Count") +
+  ggtitle("Bar of Free Sulfur Dioxide in Wine")
 
 p_total_sulfur_dioxide <- ggplot(aes(x=total.sulfur.dioxide),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = 5)+
-   ggtitle('Total Sulfur Dioxide')
+  geom_bar()+
+  xlab("Total Sulfur Dioxide in Wine") + ylab("Count") +
+  ggtitle("Bar of Total Sulfur Dioxide in Wine")
 
 p_density <- ggplot(aes(x=density),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .001)+
-   ggtitle('Density')
+  geom_bar()+
+  xlab("Density of Wine") + ylab("Count") +
+  ggtitle("Bar of Density of Wine")
 
 p_pH <- ggplot(aes(x=pH),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .02)+
-   ggtitle('pH')
+  geom_bar()+
+  xlab("pH of Wine") + ylab("Count") +
+  ggtitle("Bar of pH of Wine")
 
 p_sulphates <- ggplot(aes(x=sulphates),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .02)+
-   ggtitle('Sulphates')
+  geom_bar()+
+  xlab("Sulphates of Wine rating") + ylab("Count") +
+  ggtitle("Bar of Sulphates of Wine")
 
 p_alcohol <- ggplot(aes(x=alcohol),data =  wineQualityWhites)+
-    geom_histogram(color =I('black'),fill = "dark gray", binwidth = .25)+
-   ggtitle('Alcohol')
+  geom_bar()+
+  xlab("Alcohol of Wine rating") + ylab("Count") +
+  ggtitle("Bar of Alcohol of Wine")
 
-p_quality
-p_fixed_acidity
-p_volatile_acidity 
-p_citric_acid 
-p_residual_sugar 
-p_chlorides 
-p_free_sulfur_dioxide 
-p_total_sulfur_dioxide 
-p_density 
-p_pH
-p_sulphates 
-p_alcohol 
+grid.arrange(p_quality,
+             p_fixed_acidity,
+             p_volatile_acidity,
+             p_citric_acid,
+             p_residual_sugar,
+             p_chlorides,
+             p_free_sulfur_dioxide,
+             p_total_sulfur_dioxide,
+             p_density,
+             p_pH,
+             p_sulphates,
+             p_alcohol) 
 
 ```
 
@@ -185,16 +197,18 @@ To normalize some diagrams, I transformed the data for a more accurate distribut
 
 ```{r echo=FALSE, Distribution_Change}
 p_sulphates_log <- ggplot(aes(x=log10(sulphates)),data =  wineQualityWhites) +
-  geom_histogram(color =I('black'),fill = "dark gray", binwidth = .02) +
-  ggtitle('Sulphates Log10')
+  geom_bar()+
+  xlab("Sulphates (log10) of Wine rating") + ylab("Count") +
+  ggtitle("Bar of Sulphates  (log10) of Wine")
 
 grid.arrange(p_sulphates,
              p_sulphates_log, 
              ncol = 1)
 
 p_volatile_acidity_log <- ggplot(aes(x=log10(volatile.acidity)),data =  wineQualityWhites) +
-  geom_histogram(color =I('black'),fill = "dark gray", binwidth = .02) +
-  ggtitle('Volatile Acidity Log10')
+  geom_bar()+
+  xlab("Volatile Acidity (log10) of Wine") + ylab("Count") +
+  ggtitle("Bar of Volatile Acidity (log10)  of Wine")
 
 grid.arrange(p_volatile_acidity,
              p_volatile_acidity_log, 
@@ -310,18 +324,21 @@ qualty_alcohol
 The biggest negative corralation coefficient with quality is density and the biggest positive corralation coefficient with quality is alcohol. From the plot, quality increases at moderate rates with higher alcohol. White wine quality decreases as density increases.
 
 ```{r echo=FALSE, Bivariate_Plots_1}
-ggplot(aes(x = quality.rating, y = alcohol), data = wineQualityWhites) +
+ggplot(aes(x = quality.factor, y = alcohol), data = wineQualityWhites) +
   geom_boxplot() +
   stat_summary(fun.y = median, geom = 'point', shape = 4) +
-  labs(x = 'quality')
+  labs(x = 'Quality Rating', y = 'Alcohol')+
+  ggtitle('Alcohol vs. Quality Rating')
 by(wineQualityWhites$alcohol, wineQualityWhites$quality.rating, summary)
 ```
 
 ```{r echo=FALSE, Bivariate_Plots_2}
-ggplot(aes(x = quality.rating, y = density), data = wineQualityWhites) +
+ggplot(aes(x = quality.factor, y = density), 
+       data = subset(wineQualityWhites, density < 1.005)) +
   geom_boxplot() +
   stat_summary(fun.y = median, geom = 'point', shape = 4) +
-  labs(x = 'quality')
+  labs(x = 'Quality Rating', y = 'Density')+
+  ggtitle('Density vs. Quality Rating')
 by(wineQualityWhites$density, wineQualityWhites$quality.rating, summary)
 ```
 
@@ -329,8 +346,11 @@ by(wineQualityWhites$density, wineQualityWhites$quality.rating, summary)
 I plot alcohol and density. The correlation coefficient is -0.78, meaning that density tends to drop at alcohol increases, which makes sense.
 
 ```{r echo=FALSE, Bivariate_Plots_3}
-ggplot(aes(x = alcohol, y = density), data = wineQualityWhites) +
+ggplot(aes(x = alcohol, y = density), 
+       data = subset(wineQualityWhites, density < 1.005)) +
   geom_point(color = "orange", alpha = 1/4) + 
+  labs(x = 'Alcohol', y = 'Density')+
+  ggtitle('Density vs. Alcohol')
   stat_smooth(method = 'lm')
 cor(wineQualityWhites$alcohol, wineQualityWhites$density)
 ```
@@ -338,8 +358,11 @@ cor(wineQualityWhites$alcohol, wineQualityWhites$density)
 I plot residual sugar and density. The correlation coefficient is 0.84. It is the most strongest correlation in the data.
 
 ```{r echo=FALSE, Bivariate_Plots_4}
-ggplot(aes(x = residual.sugar, y = density), data = wineQualityWhites) +
-  geom_point(color = "orange", alpha = 1/4) + 
+ggplot(aes(x = residual.sugar, y = density), 
+       data = subset(wineQualityWhites, density < 1.005)) +
+  geom_point(color = "orange", alpha = 1/4) +
+  labs(x = 'Residual Sugar', y = 'Density')+
+  ggtitle('Density vs. Residual Sugar')
   stat_smooth(method = 'lm')
 cor(wineQualityWhites$residual.sugar, wineQualityWhites$density)
 ```
@@ -365,11 +388,14 @@ From the variables analyzed, the strongest relationship was between alcohol and 
 Quality correlates density and alcohol. So firstly I want to look at these relationship. WThe following plot shows quality, density, alcohol relationship. With low alcohol or high density it’s more usual to be low quality wine. 
 
 ```{r echo=FALSE, Multivariate_Plots_1}
+
 ggplot(data=subset(wineQualityWhites, density < 1.005), 
        aes(x=alcohol, y = density, color = quality.factor)) + 
+  scale_fill_continuous(low = 'white', high = 'blue') +
+  scale_color_brewer(type = 'seq') +
   xlab("Alcohol") +
   ylab("Density") + 
-  ggtitle("Alcohol and density by quality") +
+  ggtitle("Alcohol and Density by Quality") +
   stat_binhex()
 ```
 
@@ -377,8 +403,11 @@ We can see some bound trends between this variables across different wine qualit
 
 ```{r echo=FALSE, Multivariate_Plots_2}
 ggplot(data=subset(wineQualityWhites,density < 1.005), 
-       aes(x=alcohol, y=density, color=quality.factor)) + 
+       aes(x=alcohol, y=density, color = quality.factor)) + 
   geom_point() + 
+  xlab("Alcohol") +
+  ylab("Density") + 
+  ggtitle("Alcohol and Density by Quality") +
   facet_wrap(~quality.factor)
 ```
 
@@ -397,8 +426,8 @@ We can observate some stability between pH, chlorides and quality. Trend is the 
 
 ```{r echo=FALSE, Multivariate_Plots_4}
 ggplot(aes(x = pH, y = chlorides), data = wineQualityWhites) +
-       xlab("pH") + ylab("chlorides") +
-       geom_point(aes(color = quality.rating),size=2)
+       xlab("pH") + ylab("Chlorides") +
+       geom_point(color = 'Blue', size=2)
 ```
 
 # Multivariate Analysis
@@ -415,16 +444,23 @@ High chlorides means low quality. But when we look the relation between ph and c
 
 # Final Plots and Summary
 
-Let's sum up the observartions.
+Let's sum up the observartions. The most effective variables to decide the quality of white wine are alcohol and density. In final plots show us:
+
+- Alcohol vs. Quality Factor
+
+- Density vs. Quality Factor
+
+- Density vs. Alcohol Correlation by Quality
 
 ### Plot One
 
 ```{r echo=FALSE, Plot_One}
-ggplot(data=wineQualityWhites, aes(y=alcohol, x = quality)) + 
-  geom_boxplot(aes(color=quality.factor)) + 
-  xlab("Quality") + 
-  ylab("Alcohol") + 
-  ggtitle("Alcohol by quality")
+ggplot(aes(x = quality.factor, y = alcohol), data = wineQualityWhites) +
+  geom_boxplot(color = "Orange") +
+  stat_summary(fun.y = median, geom = 'point', shape = 4) +
+  xlab("Quality Rating") + 
+  ylab("Alcohol (% by volume)") + 
+  ggtitle("Alcohol by Quality")
 
 ```
 
@@ -433,11 +469,13 @@ First plot shows relationship between quality and alcohol. The median of alcohol
 
 ### Plot Two
 ```{r echo=FALSE, Plot_Two}
-ggplot(data=wineQualityWhites, aes(y=density, x = quality)) + 
-  geom_boxplot(aes(color=quality.factor)) + 
-  xlab("Quality") + 
-  ylab("Density") + 
-  ggtitle("Density by quality")
+ggplot(aes(x = quality.factor, y = density), 
+       data = wineQualityWhites) +
+  geom_boxplot(color = "Orange") +
+  stat_summary(fun.y = median, geom = 'point', shape = 4) + 
+  xlab("Quality Rating") + 
+  ylab("Density (g / cm^3)") + 
+  ggtitle("Density by Quality")
 ```
 
 ### Description Two
@@ -447,11 +485,13 @@ Second plot shows relationship between quality and density The median of density
 ### Plot Three
 ```{r echo=FALSE, Plot_Three}
 ggplot(data = subset(wineQualityWhites, density < 1.005), 
-       aes(x = density, y = alcohol, color = factor(quality))) +
+       aes(x = density, y = alcohol, color = quality.factor)) +
    geom_point(alpha = 1/2, position = position_jitter(h = 0), size = 2) +
-   xlab('Density') +
-   ylab('Alcohol') +
-   ggtitle('Density vs. Alcohol correlation by Quality')
+   scale_fill_continuous(low = 'white', high = 'blue') +
+   scale_color_brewer(type = 'seq') +
+   xlab('Density (g / cm^3)') +
+   ylab('Alcohol (% by volume)') +
+   ggtitle('Density vs. Alcohol Correlation by Quality')
 ```
 
 ### Description Three
