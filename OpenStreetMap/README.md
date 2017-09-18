@@ -85,13 +85,13 @@ Above is the old name corrected with the better name. Using clean_data.py, the n
 
 File sizes:
 ```
-osm/istanbul_turkey.osm	:	261 MB
-nodes_csv				:   99 MB
-nodes_tags.csv			:   3 MB
-ways_csv				:   12 MB
-ways_nodes.csv			:   38 MB
-ways_tags.csv			:   11 MB
-OpenStreetMap.db		:   143 MB
+osm/istanbul_turkey.osm	:	15 MB
+nodes_csv				:   5 MB
+nodes_tags.csv			:   0.2 MB
+ways_csv				:   0.6 MB
+ways_nodes.csv			:   2 MB
+ways_tags.csv			:   0.7 MB
+OpenStreetMap.db		:   7 MB
 ```
 ### Number of nodes
 ```sql
@@ -99,7 +99,7 @@ SELECT COUNT(*) FROM nodes;
 ```
 
 ```
-Number of nodes:  ['1219676']
+Number of nodes:  ['65806']
 ```
 
 ### Number of ways
@@ -107,7 +107,7 @@ Number of nodes:  ['1219676']
 SELECT COUNT(*) FROM ways;
 ```
 ```
-Number of ways:  ['202857']
+Number of ways:  ['10982']
 ```
 
 ## Number of unique users:
@@ -117,7 +117,7 @@ FROM (SELECT uid FROM nodes UNION ALL SELECT uid FROM ways) a;
 ```
 
 ```
-Number of unique users:  2407
+Number of unique users:  522
 ```
 
 ### Top 10 contributing users
@@ -129,16 +129,16 @@ ORDER BY COUNT(*) DESC
 LIMIT 10;
 ```
 ```sql
-Nesim		117664
-bigalxyz123	85980
-Cicerone	61896
-katpatuka	48717
-Ckurdoglu	48180
-JeLuF		47899
-EC95		38317
-canTurgay	36444
-Sakthi20	27004
-turankaya74	25278
+zweck 			5751
+mcheckimport 	5134
+lingavel 		3583
+ALADDIN111 		3551
+Herfel 			2838
+sefabaris 		2752
+mapistanbul 	2737
+Dogan_M 		2625
+dheenadhayalan 	2475
+Nesim 			2176
 ```
 
 ### Number of users appearing only once (having 1 post)
@@ -151,7 +151,7 @@ FROM
      HAVING num=1)  b;
 ```
 ```
-Number of users appearing only once:  ['679']
+Number of users appearing only once:  ['158']
 ```
 
 ### First contribition date
@@ -161,7 +161,7 @@ Number of users appearing only once:  ['679']
         LIMIT 1;
 ```
 ```
-First contribution :  ['2007-03-09T15:50:46Z']
+First contribution :  ['2007-07-02T13:41:31Z']
 ```
 
 # Additional Ideas
@@ -178,16 +178,16 @@ ORDER BY num DESC
 LIMIT 10;
 ```
 ```sql
-Pharmacy			2614
-Restaurant			1062
-Cafe				843
-Bank				509
-Fuel				409
-Fast_Food			335
-Parking				313
-Atm					284
-Place_Of_Worship	270
-School				201
+Pharmacy 			222
+Cafe 				147
+Restaurant 			117
+Bank 				72
+Bench 				54
+Place_Of_Worship 	27
+Fast_Food			24
+Taxi 				23
+Atm 				19
+Parking 			19
 ```
 ### Biggest religion (no surprise here)
 
@@ -203,7 +203,7 @@ LIMIT 1;
 ```
 
 ```
-Biggest religion :  ['Muslim 187']
+Biggest religion :  ['Muslim 18']
 ```
 ```
 # Conclusion
