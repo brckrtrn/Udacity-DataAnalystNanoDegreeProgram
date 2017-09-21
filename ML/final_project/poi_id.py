@@ -225,7 +225,7 @@ data_dict.pop("LOCKHART EUGENE E",0)
 
 my_dataset = data_dict
 
-#create new features - transformation of “from_this_person_to_poi” and “from_poi_to_this_person” values to ratios
+#create new features, transformation of from_this_person_to_poi and from_poi_to_this_person values to ratios
 for keys, values in data_dict.iteritems():
     if values["to_messages"] != "NaN" and \
        values["from_messages"] != "NaN" and \
