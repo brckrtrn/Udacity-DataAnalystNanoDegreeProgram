@@ -25,7 +25,7 @@ p10
 tp11
 Rp12
 (I1
-(I2
+(L2L
 tp13
 cnumpy
 dtype
@@ -59,7 +59,7 @@ g10
 tp25
 Rp26
 (I1
-(I2
+(L2L
 tp27
 g17
 I00
@@ -76,8 +76,8 @@ g10
 tp32
 Rp33
 (I1
-(I2
-I6
+(L2L
+L6L
 tp34
 g17
 I00
@@ -94,8 +94,8 @@ g10
 tp39
 Rp40
 (I1
-(I2
-I6
+(L2L
+L6L
 tp41
 g17
 I00
@@ -116,7 +116,7 @@ g10
 tp48
 Rp49
 (I1
-(I2
+(L2L
 tp50
 g17
 I00

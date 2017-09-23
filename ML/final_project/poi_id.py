@@ -2,10 +2,11 @@
 
 import sys
 import pickle
+import matplotlib.pyplot
 import pprint
 sys.path.append("../tools/")
 
-#from feature_format import featureFormat, targetFeatureSplit
+from feature_format import featureFormat, targetFeatureSplit
 from tester import dump_classifier_and_data
 from sklearn.feature_selection import SelectKBest
 
@@ -15,6 +16,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import accuracy_score, precision_score, recall_score
 from numpy import mean
 from sklearn import preprocessing
+
 
 from sklearn.feature_selection import f_classif
 
@@ -66,17 +68,17 @@ poi_count = 0
 for person in data_dict:
     if data_dict[person]['poi'] == True:
         poi_count += 1
-print ''
-print "Number of POI : " + str(poi_count)
-print ''
-print "Number of NON-POI : " + str((len(data_dict) - poi_count))
+print ('')
+print ("Number of POI : ") + str(poi_count)
+print ('')
+print ("Number of NON-POI : ") + str((len(data_dict) - poi_count))
 
 
 ### Task 2: Remove outliers
 
 ### missing and non mising values find
-print ''
-print "Number of missing values in each feature: "
+print ("")
+print ("Number of missing values in each feature: ")
 nan_in_features = [0 for i in range(len(features_list))]
 non_nan_in_features = [0 for i in range(len(features_list))]
 for i, person in enumerate(data_dict.values()):
@@ -88,70 +90,56 @@ for i, person in enumerate(data_dict.values()):
 
 ### missing values in each feature
 for i, feature in enumerate(features_list):
-    print feature, nan_in_features[i]
-print ''
+    print (feature, nan_in_features[i])
+print ("")
 
 ### non missing values in each feature
-print "Number of non missing values in each feature: "
+print ("Number of non missing values in each feature: ")
 
 for i, feature in enumerate(features_list):
-    print feature, non_nan_in_features[i]
-print ''
+    print (feature, non_nan_in_features[i])
+print ("")
 
 ### total missing values in each feature
 total_nan_features_count = 0
 for i, feature in enumerate(features_list):
     total_nan_features_count = total_nan_features_count + nan_in_features[i]
-print "Number of NaN values:", total_nan_features_count
-print ''
+print ("Number of NaN values:", total_nan_features_count)
+print ("")
 
 ### total non missing values in each feature
 total_non_nan_features_count=0
 for i, feature in enumerate(features_list):
     total_non_nan_features_count = total_non_nan_features_count + non_nan_in_features[i]
-print "Number of not NaN values:", total_non_nan_features_count
-print ''
+print ("Number of not NaN values:", total_non_nan_features_count)
+print ("")
 
 ### total data point
 total_features_count=0
 for i, feature in enumerate(features_list):
     total_features_count = total_features_count + nan_in_features[i] + non_nan_in_features[i]
-print "Number of total data points:", total_features_count
-print ''
-
-### salary and bonus plot
-def plotOutliers(data_set, feature_x, feature_y):
-    data = featureFormat(data_set, [feature_x, feature_y])
-    for point in data:
-        x = point[0]
-        y = point[1]
-        matplotlib.pyplot.scatter( x, y )
-    matplotlib.pyplot.xlabel(feature_x)
-    matplotlib.pyplot.ylabel(feature_y)
-#   matplotlib.pyplot.show()  #open this line to show plot
-print(plotOutliers(data_dict, 'salary', 'bonus'))
-
-print "looks like outlier could be found"
+print ("Number of total data points:", total_features_count)
+print ("")
 
 ##persons with a salary greater than $600K
-print ''
-print "persons with a salary greater than $600K:"
+print ("")
+print ("persons with a salary greater than $600K:")
 for l in data_dict:
     if data_dict[l]["salary"] != "NaN":
         if data_dict[l]["salary"] >= 600000:
-            print l
-print ''
+            print (l)
+print ("")
 
 ##persons with a bonus greater than $3M
-print "persons with a bonus greater than $3M:"
+print ("persons with a bonus greater than $3M:")
 for l in data_dict:
     if data_dict[l]["bonus"] != "NaN":
         if data_dict[l]["bonus"] >= 3000000:
-            print l
-print ''
+            print (l)
+print ("")
 
 #the largest salary
-print "and the largest salary goes to:"
+print ("and the largest salary goes to:")
 i = 0
 big_salary = "none"
 for l in data_dict:
@@ -159,11 +147,11 @@ for l in data_dict:
         if data_dict[l]["salary"] > i:
             i = data_dict[l]["salary"]
             big_salary = l
-print big_salary
-print ''
+print (big_salary)
+print ("")
 
 #the largest bonus
-print "and the largest bonus goes to:"
+print ("and the largest bonus goes to:")
 i = 0
 big_bonus = "none"
 for l in data_dict:
@@ -171,11 +159,11 @@ for l in data_dict:
         if data_dict[l]["bonus"] > i:
             i = data_dict[l]["bonus"]
             big_bonus = l
-print big_bonus
+print (big_bonus)
 # total is obviously an outlier. IT will be removed
 
 #the second largest salary
-print "and the second largest salary goes to:"
+print ("and the second largest salary goes to:")
 i = 0
 big_salary = "none"
 for l in data_dict:
@@ -183,11 +171,11 @@ for l in data_dict:
         if data_dict[l]["salary"] > i:
             i = data_dict[l]["salary"]
             big_salary = l
-print big_salary
-print ''
+print (big_salary)
+print ("")
 
 #the second largest bonus
-print "and the second largest bonus goes to:"
+print ("and the second largest bonus goes to:")
 i = 0
 big_bonus = "none"
 for l in data_dict:
@@ -195,24 +183,24 @@ for l in data_dict:
         if data_dict[l]["bonus"] > i:
             i = data_dict[l]["bonus"]
             big_bonus = l
-print big_bonus
+print (big_bonus)
 
 #THE TRAVEL AGENCY IN THE PARK: this records does not represent a person .
 #LOCKHART EUGENE E: This record does not contain any information.
 
-print ''
-print "THE TRAVEL AGENCY IN THE PARK and Eugene Lockhart have no entered data:"
-print ''
-print data_dict["THE TRAVEL AGENCY IN THE PARK"]
-print ''
-print data_dict["LOCKHART EUGENE E"]
-print ''
+print ("")
+print ("THE TRAVEL AGENCY IN THE PARK and Eugene Lockhart have no entered data:")
+print ("")
+print (data_dict["THE TRAVEL AGENCY IN THE PARK"])
+print ("")
+print (data_dict["LOCKHART EUGENE E"])
+print ("")
 
-print ''
-print "'Total' is obviously an outlier so we will remove it from the dataset"
-print ''
-print "We've decided to remove two entries more:"
-print "THE TRAVEL AGENCY IN THE PARK, and EUGENE LOCKHART"
+print ("")
+print ("'Total' is obviously an outlier so we will remove it from the dataset")
+print ("")
+print ("We've decided to remove two entries more:")
+print ("THE TRAVEL AGENCY IN THE PARK, and EUGENE LOCKHART")
 
 #remove TOTAL, THE TRAVEL AGENCY IN THE PARK and LOCKHART EUGENE
 data_dict.pop("TOTAL",0)
@@ -241,7 +229,7 @@ for keys, values in data_dict.iteritems():
 #add new ones to features
 features_list.extend (['poi_to_person_rate', 'person_to_poi_rate'])
 
-print ""
+print ("")
 ## Extract features and labels from dataset for local testing
 data = featureFormat(my_dataset, features_list, sort_keys = True)
 labels, features = targetFeatureSplit(data)
@@ -291,7 +279,7 @@ feature_train, feature_test, labels_train, labels_test = \
 new_feature_train, new_feature_test, new_labels_train, new_labels_test = \
 	train_test_split( new_features, new_labels, test_size=0.3, random_state=42)
 
-print ""
+print ("")
 
 # best paramaters find
 ## tuning parmaters of SVM
@@ -303,7 +291,7 @@ s_clf = grid_search.GridSearchCV(SVM_clf, s_param)
 s_clf = s_clf.fit(features, labels)
 s_clf = s_clf.best_estimator_
 
-print s_clf
+print (s_clf)
 
 # best paramaters find
 ## tuning paramaters of Decision Trees
@@ -315,9 +303,9 @@ clf = grid_search.GridSearchCV(mclf, parameters)
 clf = clf.fit(features, labels)
 clf = clf.best_estimator_
 
-print clf
+print (clf)
 
-print ""
+print ("")
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall
 ### using our testing script. Check the tester.py script in the final project
@@ -350,10 +338,10 @@ def model_evaluate(clf, features, labels, num_iters=1000, test_size=0.3):
             first = False
 
 	#print results		
-	print clf
-    print "precision: {}".format(mean(arr_precision))
-    print "recall:    {}".format(mean(arr_recall))
-    print "accuracy:  {}".format(mean(arr_accuracy))
+    print (clf)
+    print ("precision: {}".format(mean(arr_precision)))
+    print ("recall:    {}".format(mean(arr_recall)))
+    print ("accuracy:  {}".format(mean(arr_accuracy)))
 	
     return mean(arr_precision), mean(arr_recall),mean(arr_accuracy)
 
@@ -378,45 +366,45 @@ AdaB_clf_org = AdaBoostClassifier(algorithm='SAMME')
 AdaB_clf_new = AdaBoostClassifier(algorithm='SAMME')
 
 #Navie Bayes model without new features
-print ""
+print ("")
 print("Evaluate navie bayes model without new feature")
 model_evaluate(GNB_clf_org, features, labels)
 
 #Navie Bayes model with new feature
-print ""
+print ("")
 print("Evaluate navie bayes model with new feature")
 model_evaluate(GNB_clf_new, new_features, new_labels)
 
 #SVM model without new feature
-print ""
+print ("")
 print("Evaluate svm model without new feature")
 model_evaluate(SVM_clf_org, features, labels)
 
 #VM model with new feature
-print ""
+print ("")
 print("Evaluate svm model with new feature")
 model_evaluate(SVM_clf_new, new_features, new_labels)
 
 #Decision Tree model without new feature
-print ""
+print ("")
 print("Evaluate Decision Tree model without new feature")
 model_evaluate(DT_clf_org, features, labels)
 
 #Decision Tree model with new feature
-print ""
+print ("")
 print("Evaluate Decision Tree model with new feature")
 model_evaluate(DT_clf_new, new_features, new_labels)
 
 #Adaboost model without new feature
-print ""
+print ("")
 print("Evaluate Adaboost model without new feature")
 model_evaluate(AdaB_clf_org, features, labels)
 
 #Adaboost model with new feature
-print ""
+print ("")
 print("Evaluate Adaboost model with new feature")
 model_evaluate(AdaB_clf_new, new_features, new_labels)
-print ""
+print ("")
 
 # Example starting point. Try investigating other evaluation techniques!
 ### Task 6: Dump your classifier, dataset, and features_list so anyone can
@@ -424,7 +412,7 @@ print ""
 ### that the version of poi_id.py that you submit can be run on its own and
 ### generates the necessary .pkl files for validating your results.
 
-print ""
-test_classifier(GNB_clf, my_dataset, without_new_features_list)
-print ""
-dump_classifier_and_data(GNB_clf, my_dataset, without_new_features_list)
+print ("")
+test_classifier(GNB_clf_org, my_dataset, without_new_features_list)
+print ("")
+dump_classifier_and_data(GNB_clf_org, my_dataset, without_new_features_list)
